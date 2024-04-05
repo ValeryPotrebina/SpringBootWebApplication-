@@ -1,0 +1,30 @@
+a {
+    text-decoration: none;
+    color: red;
+    cursor: pointer;
+}
+
+h1 {
+    font-style: italic;
+}
+
+.container {
+    display: block;
+    text-align: center;
+    padding: 100px 0;
+    width: 100%;
+}
+
+.calculation {
+    font-size: 45px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 35px;
+    color: blue;
+}
+hr {
+    width: 30%;
+    background-color: red;
+}
