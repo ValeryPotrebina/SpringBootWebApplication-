@@ -31,4 +31,13 @@ public class PersonDAO {
         people.add(person);
         System.out.println("[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "] " + "saved newPerson");
     }
+
+    public void update(int id, Person person) {
+        Person personToBeUpdated = show(id);
+        personToBeUpdated.setName(person.getName());
+    }
+
+    public void delete(int id) {
+        people.removeIf(p -> p.getId() == id);
+    }
 }
