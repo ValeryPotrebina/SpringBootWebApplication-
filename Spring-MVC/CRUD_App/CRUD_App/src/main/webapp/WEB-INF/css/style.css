@@ -1,0 +1,56 @@
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+p {
+    margin: 0 0 0.5rem;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.people-list {
+    text-align: center;
+    display: block;
+    margin-bottom: 25px;
+}
+
+.people-info {
+    color: black;
+    font-size: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.people-info:hover {
+    color: RGB(23, 32, 53);
+}
+
+.create__link {
+    margin-top: 25px;
+    color: black;
+    font-size: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.line {
+    width: 100%;
+    margin-top: 15px;
+}

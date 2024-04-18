@@ -5,7 +5,11 @@ import org.example.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.naming.Binding;
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -49,8 +53,14 @@ public class PeopleController {
     }
 
     @PostMapping
-    public  String create(@ModelAttribute("person") Person person){
+    public  String create(@ModelAttribute("person") @Valid Person person,
+                          BindingResult bindingResult){
         System.out.println("[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "] " + "saving newPerson");
+
+        if (bindingResult.hasErrors()){
+            System.out.println(bindingResult);
+            return "people/new";
+        }
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -62,7 +72,11 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String ipdate(@ModelAttribute("person") Person person, @PathVariable("id") int id){
+    public String ipdate(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id){
+        if (bindingResult.hasErrors()){
+            System.out.println(bindingResult);
+            return "people/edit";
+        }
         personDAO.update(id, person);
         return "redirect:/people";
     }
