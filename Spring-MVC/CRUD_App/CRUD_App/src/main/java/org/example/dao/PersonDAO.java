@@ -32,7 +32,7 @@ public class PersonDAO {
         return jdbcTemplate.query(SQL_REQUEST, new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
     public void save(Person person)  {
-        String SQL_REQUEST = "INSERT INTO Person VALUES(1, ?, ?, ?)";
+        String SQL_REQUEST = "INSERT INTO Person(name, age, email) VALUES(?, ?, ?)";
         System.out.println("[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "] " + "saved newPerson");
         jdbcTemplate.update(SQL_REQUEST, person.getName(), person.getAge(), person.getEmail());
     }
