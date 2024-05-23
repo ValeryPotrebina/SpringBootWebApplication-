@@ -27,6 +27,12 @@
         <div style="color: red" th:if="${#fields.hasErrors('email')}"  th:errors="*{email}">Name error</div>
     </div>
 
+    <div class="line">
+        <label for="address">Enter address: </label>
+        <input type="text" th:field="*{address}" id="address"/>
+        <div style="color: red" th:if="${#fields.hasErrors('address')}"  th:errors="*{address}">Name error</div>
+    </div>
+
   <input type="submit" value="Creature!">
 </form>
 </body>

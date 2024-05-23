@@ -2,13 +2,13 @@ package org.example.controllers;
 
 import org.example.dao.PersonDAO;
 import org.example.models.Person;
+import org.example.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.Binding;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,9 +17,11 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping("/people")
 public class PeopleController {
     private final PersonDAO personDAO;
+    private final PersonValidator personValidator;
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
+        this.personValidator = personValidator;
     }
 
     @GetMapping()
@@ -55,6 +57,7 @@ public class PeopleController {
     @PostMapping
     public  String create(@ModelAttribute("person") @Valid Person person,
                           BindingResult bindingResult){
+        personValidator.validate(person, bindingResult);
         System.out.println("[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "] " + "saving newPerson");
 
         if (bindingResult.hasErrors()){
@@ -72,7 +75,8 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String ipdate(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id){
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id){
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()){
             System.out.println(bindingResult);
             return "people/edit";
@@ -86,4 +90,5 @@ public class PeopleController {
         personDAO.delete(id);
         return "redirect:/people";
     }
+
 }

@@ -14,14 +14,20 @@ public class Person {
     @Email(message = "WRONG EMAIL")
     private String email;
 
-    public Person() {}
+//    Country, City, index (6 nums)
+    @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}", message = "Your address should be in this format: Country, City, index (6 nums)")
+    private String address;
 
-    public Person(int id, String name, int age, String email) {
+    public Person(int id, String name, int age, String email, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.address = address;
     }
+
+    public Person() {}
+
     public int getId() {
         return id;
     }
@@ -52,5 +58,13 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

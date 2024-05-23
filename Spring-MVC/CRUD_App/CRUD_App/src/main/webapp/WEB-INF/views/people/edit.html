@@ -25,9 +25,14 @@
     <label for="email">Enter age: </label>
     <input type="text" th:field="*{email}" id="email">
     <div style="color: red" th:if="${#fields.hasErrors('email')}"  th:errors="*{email}">Name error</div>
-    <br/>
     </div>
 
+    <div class="line">
+        <label for="address">Enter address: </label>
+        <input type="text" th:field="*{address}" id="address"/>
+        <div style="color: red" th:if="${#fields.hasErrors('address')}"  th:errors="*{address}">Name error</div>
+    </div>
+    <br/>
   <input type="submit" value="Update!">
 </form>
 

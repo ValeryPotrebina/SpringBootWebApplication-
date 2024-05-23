@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Component
 public class PersonDAO {
     private final JdbcTemplate jdbcTemplate;
@@ -31,15 +33,21 @@ public class PersonDAO {
         String SQL_REQUEST = "SELECT * FROM Person WHERE id=?";
         return jdbcTemplate.query(SQL_REQUEST, new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
+
+    public Optional<Person> show(String email) {
+        String SQL_REQUEST = "SELECT * FROM PERSON WHERE email=?";
+        return jdbcTemplate.query(SQL_REQUEST, new Object[]{email},
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    }
     public void save(Person person)  {
-        String SQL_REQUEST = "INSERT INTO Person(name, age, email) VALUES(?, ?, ?)";
+        String SQL_REQUEST = "INSERT INTO Person(name, age, email, address) VALUES(?, ?, ?, ?)";
         System.out.println("[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "] " + "saved newPerson");
-        jdbcTemplate.update(SQL_REQUEST, person.getName(), person.getAge(), person.getEmail());
+        jdbcTemplate.update(SQL_REQUEST, person.getName(), person.getAge(), person.getEmail(), person.getAddress());
     }
 
     public void update(int id, Person person) {
-        String SQL_REQUEST = "UPDATE Person SET name=?, age=?, email=? WHERE id=?";
-        jdbcTemplate.update(SQL_REQUEST, person.getName(), person.getAge(), person.getEmail(), id);
+        String SQL_REQUEST = "UPDATE Person SET name=?, age=?, email=?, address=? WHERE id=?";
+        jdbcTemplate.update(SQL_REQUEST, person.getName(), person.getAge(), person.getEmail(), person.getAddress(), id);
     }
 
     public void delete(int id) {
@@ -67,7 +75,7 @@ public class PersonDAO {
     private List<Person> create1000People(){
         List<Person> people = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
-            people.add(new Person(i, "name" + i, i, "a"+i+"@mail.ru"));
+            people.add(new Person(i, "name" + i, i, "a"+i+"@mail.ru", "sime address"));
         }
         return people;
     }
